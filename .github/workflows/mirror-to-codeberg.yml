@@ -1,0 +1,65 @@
+# Mirror the PUBLIC release repo (code + wiki + tags) to Codeberg.
+# This file is synced into doomsdayonecom/pac-man by the source
+# repo's release workflow — edit it THERE (release-repo/ in
+# doomsdayonecom/pac-man-x16), not here.
+#
+# GitHub Releases (the zips) do not travel over git: Codeberg carries
+# the repo contents + tags. If Codeberg-native releases are wanted
+# later, add an API job here gated on a CODEBERG_TOKEN secret.
+#
+# Secret: CODEBERG_SSH_KEY — deploy key with write access on
+# codeberg.org/doomsdayonecom/pac-man (and its wiki).
+
+name: 🪞 Mirror to Codeberg
+
+on:
+  push:
+    branches: ["**"]
+    tags: ["**"]
+  gollum:
+  workflow_dispatch:
+
+concurrency:
+  group: mirror-codeberg-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  mirror-code:
+    name: Mirror release repo
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📦 Checkout (full history + all refs)
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: 🪞 Push to Codeberg
+        uses: pixta-dev/repository-mirroring-action@v1
+        with:
+          target_repo_url: ssh://git@codeberg.org/doomsdayonecom/pac-man.git
+          ssh_private_key: ${{ secrets.CODEBERG_SSH_KEY }}
+
+  mirror-wiki:
+    name: Mirror wiki repo
+    runs-on: ubuntu-latest
+    if: github.event_name != 'push' || github.ref_type == 'branch'
+    steps:
+      - name: 📦 Checkout wiki (full history)
+        uses: actions/checkout@v7
+        with:
+          repository: ${{ github.repository }}.wiki
+          fetch-depth: 0
+        continue-on-error: true
+
+      - name: 🪞 Push wiki master → Codeberg main
+        env:
+          CODEBERG_SSH_KEY: ${{ secrets.CODEBERG_SSH_KEY }}
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.ssh
+          printf '%s\n' "$CODEBERG_SSH_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan codeberg.org >> ~/.ssh/known_hosts 2>/dev/null
+          git remote add codeberg ssh://git@codeberg.org/doomsdayonecom/pac-man.wiki.git
+          git push --force codeberg HEAD:refs/heads/main
+        continue-on-error: true
