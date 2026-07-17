@@ -31,6 +31,12 @@ arcade ROM:
 
 ## Quick start
 
+Each release carries **two** bundles — pick one: the **standard**
+zip for a normal landscape monitor, or the **`-tate`** zip if you
+can physically rotate your screen 90° clockwise, which plays the
+arcade's true portrait orientation at a pixel-perfect 2× scale.
+Identical filenames and instructions either way.
+
 **Real hardware** — copy every file from the release zip to the root
 of a FAT32 SD card, then:
 
@@ -54,6 +60,20 @@ x16emu -prg PACMAN.PRG -run
 | B | start a two-player alternating game (2 credits) |
 | P | pause / resume |
 | D-pad | move Pac-Man |
+
+## Doomsday One
+
+This is a [Doomsday One](http://doomsdayone.com) retro port — the
+game's home page is
+[doomsdayone.com/games/pac-man](http://doomsdayone.com/games/pac-man).
+
+The game is free, and always will be — but releases reach
+[Patreon supporters](https://www.patreon.com/c/doomsdayone) **early**.
+Come say hello on the
+[Doomsday One Discord](https://discord.gg/P5JhvpKYzV), or jump
+straight into the
+[Pac-Man Discord](https://discord.gg/4wcYjwnhXe) for this port
+specifically.
 
 ---
 
