@@ -61,6 +61,21 @@ x16emu -prg PACMAN.PRG -run
 | P | pause / resume |
 | D-pad | move Pac-Man |
 
+## Lineage & thanks
+
+This port grew out of the eZ80 assembly **Pac-Man for the Agon
+Light 2** begun in 2023 — the X16 version was written against that
+codebase as its initial reference, and the arcade art imported from
+it is still the basis of every sprite and tile in the game.
+
+Thanks to the Agon community:
+
+- **BeeGee747** — the initial assets on the Agon port, carried over
+  to this Commander X16 version.
+- **Sijnstra**, **ss7** and **Richard_Turnnidge** — help writing the
+  original eZ80 assembly version that served as the reference for
+  the initial Commander X16 port.
+
 ## Doomsday One
 
 This is a [Doomsday One](http://doomsdayone.com) retro port — the
