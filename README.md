@@ -53,13 +53,15 @@ x16emu -prg PACMAN.PRG -run
 
 ## Controls
 
-| Control | Action |
-|---|---|
-| SELECT | insert a coin |
-| START | start a one-player game (1 credit) |
-| B | start a two-player alternating game (2 credits) |
-| P | pause / resume |
-| D-pad | move Pac-Man |
+Joystick / SNES pad in port 1, or the keyboard — both always work:
+
+| Action | Controller | Keyboard |
+|---|---|---|
+| Move Pac-Man | D-pad | WASD or cursor keys |
+| Insert a coin | SELECT | C |
+| Start one-player (1 credit) | START | V or Enter |
+| Start two-player (2 credits) | B | B |
+| Pause / resume | — | P |
 
 ## Lineage & thanks
 
